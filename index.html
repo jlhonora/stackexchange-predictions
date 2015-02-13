@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stack Exchange Personalized Prediction Data</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Stack Exchange Personalized Prediction Data</h1>
+      <p>Stack Exchange uses your on-site activity to customize your experience and show you more relevant content. You can download your data in JSON format, but here you can check it out visually.</p>
+      <p class="lead">Download your data from here: <a href="//stackoverflow.com/users/prediction-data">stackoverflow.com/users/prediction-data</a> and then <strong>upload it:</strong></p>
+      <input type="file" id="fileInput"/>
+    </div>
+    <div class="row">
+      <div id="charts"></div>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.4/d3.min.js"></script>
+<script src="d3pie.min.js"></script>
+<script src="data.js"></script>
+
+</body>
+</html>
