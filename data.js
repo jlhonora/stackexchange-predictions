@@ -16,14 +16,43 @@ var camelCaseToWords = function(str) {
     return(out);
 };
 
+var filterTop = function(hash, n) {
+  var tuples = [];
+  for (var key in hash) {
+    tuples.push([key, hash[key]]);
+  }
+  tuples.sort(function(a, b) {
+      a = a[1];
+      b = b[1];
+      return a < b ? -1 : (a > b ? 1 : 0);
+  });
+  var newHash = {};
+  var len = tuples.length
+  for (var i = len - 1; i >= (len - n); i--) {
+      var key = tuples[i][0];
+      var value = tuples[i][1];
+      newHash[key] = value;
+  }
+  return newHash;
+};
+
 var processInput = function(content) {
   var data = JSON.parse(content);
   var colors = ["#2484c1", "#4daa4b", "#0c6197", "#90c469", "#daca61", "#e4a14b", "#e98125", "#cb2121", "#830909", "#923e99", "#ae83d5", "#bf273e", "#ce2aeb", "#bca44a", "#618d1b", "#1ee67b", "#b0ec44", "#a4a0c9", "#322849", "#86f71a", "#d1c87f", "#7d9058", "#44b9b0", "#7c37c0", "#cc9fb1", "#e65414", "#8b6834", "#248838", "#adadad"];
   var colors_length = colors.length;
-  var categories = ["TechStacks", "MajorDeveloperKinds"]
+
+  // Hard-coded categories
+  var categories = ["TechStacks", "TagViews", "MajorDeveloperKinds"];
+
+  // Process minor categories
   $.each(data["Data"]["MajorDeveloperKinds"], function(key, val) {
     categories.push("Minor" + key + "DeveloperKinds");
   });
+
+  // Filter top n tags
+  data["Data"]["TagViews"] = filterTop(data["Data"]["TagViews"], 10);
+
+  // Process categories
   $.each(categories, function(category_index, category) {
     $('#charts').append('<div class="col-md-6" id="pieChart' + category + '"></div>');
     var content = [];
