@@ -44,13 +44,21 @@ var processInput = function(content) {
   // Hard-coded categories
   var categories = ["TechStacks", "TagViews", "MajorDeveloperKinds"];
 
-  // Process minor categories
-  $.each(data["Data"]["MajorDeveloperKinds"], function(key, val) {
-    categories.push("Minor" + key + "DeveloperKinds");
-  });
+  // Sometimes this data is empty
+  if (Object.keys(data["Data"]["MajorDeveloperKinds"]).length == 0) {
+    categories.pop("MajorDeveloperKinds");
+    categories.push("MinorWebDeveloperKinds");
+    categories.push("MinorMobileDeveloperKinds");
+    categories.push("MinorOtherDeveloperKinds");
+  } else {
+    // Process minor categories
+    $.each(data["Data"]["MajorDeveloperKinds"], function(key, val) {
+      categories.push("Minor" + key + "DeveloperKinds");
+    });
+  }
 
   // Filter top n tags
-  data["Data"]["TagViews"] = filterTop(data["Data"]["TagViews"], 10);
+  data["Data"]["TagViews"] = filterTop(data["Data"]["TagViews"], 15);
 
   // Process categories
   $.each(categories, function(category_index, category) {
